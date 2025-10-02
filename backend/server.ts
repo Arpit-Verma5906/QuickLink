@@ -1,5 +1,6 @@
 import express from "express";
 import type { Request, Response } from "express";
+import "./db"; // import connection
 
 const app = express();
 const port: number = 3000;
@@ -9,7 +10,7 @@ app.use(express.json());
 
 // GET route
 app.get("/", (req: Request, res: Response) => {
-    res.send("Hello from Bun Backend with TypeScript!");
+    res.send("Hello from Bun Backend with MongoDB!");
 });
 
 // POST route

@@ -2,11 +2,15 @@ import express from "express";
 import type { Request, Response } from "express";
 import { connectDB, urls } from "./db"; // import connection
 import { nanoid } from "nanoid"
+import cors from "cors";
 
 const app = express();
 const port: number = 3000
 ;
 
+app.use(cors({
+  origin: "http://localhost:5173", // your frontend URL
+}));
 // Middleware to parse JSON
 app.use(express.json());
 
@@ -32,7 +36,7 @@ app.post("/shorten", async (req: Request, res: Response) => {
     // Save Mapping
     await urls.insertOne({ shortID, longUrl, createdAt: new Date(), expiryDate: new Date(Date.now() + 1000 * 60) });
 
-    return res.json({ shortUrl: `http:localhost:${port}/${shortID}`});
+    return res.json({ shortUrl: `http://localhost:${port}/${shortID}`});
 });
 
 // GET /:shortID -> redirect

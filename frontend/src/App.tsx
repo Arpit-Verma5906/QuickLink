@@ -49,6 +49,9 @@ function App() {
             </button>
           </div>
         </div>
+        <p className="text-xs text-gray-600">
+          Generated Links Will Automatically Get Deleted In 10 days
+        </p>
       </div>
     </main>
   )

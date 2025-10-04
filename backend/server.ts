@@ -34,7 +34,7 @@ app.post("/shorten", async (req: Request, res: Response) => {
     }
 
     // Save Mapping
-    await urls.insertOne({ shortID, longUrl, createdAt: new Date(), expiryDate: new Date(Date.now() + 1000 * 60) });
+    await urls.insertOne({ shortID, longUrl, createdAt: new Date(), expiryDate: new Date(Date.now() + 1000 * 60 * 60) });
 
     return res.json({ shortUrl: `http://localhost:${port}/${shortID}`});
 });

@@ -8,12 +8,13 @@ function App() {
   const [shortUrl, setShortUrl] = useState("")
 
   const handleShorten = async () => {
-    if (!longUrl.trim()) return;
+    const trimmedLongUrl = longUrl.trim();
+    if (!trimmedLongUrl) return;
 
     const res = await fetch("http://localhost:3000/shorten", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ longUrl }),
+      body: JSON.stringify({ longUrl: trimmedLongUrl }),
     });
 
     const data = await res.json();
@@ -42,7 +43,7 @@ function App() {
 
         <div className="flex gap-[3%] w-full px-[5%]">
           <Input className="flex-1"
-            value={longUrl}
+            value={longUrl.trim()}
             onChange={(e) => setLongUrl(e.target.value)}
           />
           <Button onClick={handleShorten}>Shorten</Button>

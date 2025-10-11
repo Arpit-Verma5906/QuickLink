@@ -37,7 +37,7 @@ app.post("/shorten", async (req: Request, res: Response) => {
             url: longUrl,
             shortCode: shortID,
             createdAt: new Date(),
-            expiryDate: new Date(Date.now() +  60 * 1000),
+            expiryDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
         },
     })
 

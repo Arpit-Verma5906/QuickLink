@@ -2,6 +2,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
+const backendURL = window._env_?.VITE_API_URL || "http://localhost:3000";
+
 function App() {
 
   const [longUrl, setLongUrl] = useState("");
@@ -11,7 +13,7 @@ function App() {
     const trimmedLongUrl = longUrl.trim();
     if (!trimmedLongUrl) return;
 
-    const res = await fetch("http://localhost:3000/shorten", {
+    const res = await fetch(`${backendURL}/shorten`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ longUrl: trimmedLongUrl }),

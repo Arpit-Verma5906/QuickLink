@@ -1,0 +1,14 @@
+# Dependency folders
+node_modules
+dist
+
+# Docker files
+Dockerfile
+.dockerignore
+
+# Source control
+.git
+.gitignore
+
+# Environment variables
+.env

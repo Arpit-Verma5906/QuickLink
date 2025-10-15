@@ -1,0 +1,49 @@
+services:
+
+  postgres:
+    image: postgres:15
+    container_name: quicklink-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: QuickLink
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - quicklink_network
+  backend:
+    build:
+      context: ./backend
+    container_name: backend
+    restart: always
+    env_file:
+      - ./backend/.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    command: ["sh", "-c", "bunx prisma migrate deploy && bun run server.ts"]
+    networks:
+      - quicklink_network
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    restart: always
+    ports:
+      - "5173:80"
+    environment:
+      - VITE_API_URL=http://backend:3000
+    networks:
+      - quicklink_network
+
+volumes:
+  pg_data:
+
+networks:
+  quicklink_network:
+    driver: bridge # Default driver, but good practice to specify

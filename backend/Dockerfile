@@ -7,7 +7,7 @@ WORKDIR /app
 
 # Copy only necessary files first for layer caching
 COPY bun.lock package.json ./
-RUN bun install --production
+RUN bun install
 
 # Copy rest of the app
 COPY . .
